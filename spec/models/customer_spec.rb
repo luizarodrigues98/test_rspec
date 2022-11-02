@@ -30,9 +30,27 @@ RSpec.describe Customer, type: :model do
 
   end
 
-  it 'Atributo Transitóriio' do
+  it 'Atributo Transitório' do
     customer = create(:customer_default, upcased: true)
     expect(customer.name.upcase).to eq(customer.name)
   end
+
+  it 'Cliente Masculino VIP' do
+    customer = create(:customer_male_vip)
+    expect(customer.gender).to eq('M')
+    expect(customer.vip).to eq(true)
+  end
+
+  it 'Cliente Feminino VIP' do
+    customer = create(:customer_female_vip)
+    expect(customer.gender).to eq('F')
+
+  end 
+
+  it 'Cliente NÃO BINÁRIO VIP' do
+    customer = create(:customer_no_binary_vip)
+    expect(customer.gender).to eq('N Binário')
+  end
+
   it { expect { create(:customer)}.to change {Customer.all.size}.by(1) }
 end

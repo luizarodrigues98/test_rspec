@@ -5,8 +5,9 @@ FactoryBot.define do
     end
 
     name {Faker::Name.name}
-    email {Faker::Internet.email}
-    
+    # email {Faker::Internet.email}
+    sequence(:email) {|n| "meu_email-#{n}@email.com" }
+
     trait :male do
       gender { 'M' }
     end
@@ -38,7 +39,7 @@ FactoryBot.define do
     factory :customer_female_default, traits: [:default, :female]
     factory :customer_no_binary_default, traits: [:default, :no_binary]
 
-    after(:create) do |customer, evaluator|
+    after(:build) do |customer, evaluator|
       customer.name.upcase! if evaluator.upcased
     end
   end
